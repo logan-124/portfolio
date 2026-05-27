@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyen Duy Hung — Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-bg: #0a0a0a;
+            --dark-secondary: #141414;
+            --dark-tertiary: #1f1f1f;
+            --dark-border: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8b8;
+            --text-muted: #808080;
+            --accent-primary: #00d9ff;
+            --accent-secondary: #7c3aed;
+            --accent-warm: #f59e0b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background gradient */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(0, 217, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--dark-border);
+            z-index: 999;
+            padding: 1.5rem 0;
+        }
+
+        .nav-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            position: relative;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-primary);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 120px;
+            padding-bottom: 80px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-30px) translateX(-30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin-left: 80px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            animation: slideInUp 0.8s ease 0.1s both;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            animation: slideInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            animation: slideInUp 0.8s ease 0.3s both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn {
+            padding: 12px 32px;
+            border: 2px solid transparent;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            z-index: -1;
+            transition: left 0.3s ease;
+        }
+
+        .btn-primary {
+            border-color: var(--accent-primary);
+            color: var(--dark-bg);
+            font-weight: 700;
+            background: var(--accent-primary);
+        }
+
+        .btn-primary::before {
+            background: var(--accent-primary);
+        }
+
+        .btn-primary:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+            background: var(--accent-secondary);
+            border-color: var(--accent-secondary);
+        }
+
+        .btn-secondary {
+            border-color: var(--dark-border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* Page container */
+        .page {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+            opacity: 1;
+            animation: fadeInPage 0.6s ease;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Projects Section */
+        .projects-section {
+            padding: 100px 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 5rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, var(--dark-secondary) 0%, var(--dark-tertiary) 100%);
+            border: 1px solid var(--dark-border);
+            border-radius: 8px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(124, 58, 237, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-primary);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .project-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-badge {
+            font-size: 11px;
+            padding: 0.4rem 0.8rem;
+            background: rgba(124, 58, 237, 0.15);
+            color: var(--accent-secondary);
+            border-radius: 4px;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            font-weight: 500;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--dark-border);
+        }
+
+        .project-link {
+            font-size: 12px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-link:hover {
+            color: var(--accent-warm);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 100px 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .about-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .about-text p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .skills-container {
+            margin-top: 3rem;
+        }
+
+        .skill-category {
+            margin-bottom: 2.5rem;
+        }
+
+        .skill-category-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .skill-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .skill-tag {
+            padding: 0.5rem 1rem;
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 4px;
+            font-size: 13px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            border-color: var(--accent-primary);
+            background: rgba(0, 217, 255, 0.1);
+        }
+
+        .about-sidebar {
+            background: linear-gradient(135deg, var(--dark-secondary) 0%, var(--dark-tertiary) 100%);
+            border: 1px solid var(--dark-border);
+            border-radius: 8px;
+            padding: 2.5rem;
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-item {
+            margin-bottom: 2.5rem;
+        }
+
+        .sidebar-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .sidebar-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-primary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-value {
+            font-size: 14px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-header {
+            margin-bottom: 4rem;
+        }
+
+        .contact-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .contact-card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-4px);
+        }
+
+        .contact-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .contact-value {
+            font-size: 15px;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-value:hover {
+            color: var(--accent-warm);
+        }
+
+        .contact-socials {
+            display: flex;
+            gap: 2rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--dark-border);
+        }
+
+        .social-link {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--dark-border);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .about-sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 44px;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 11px;
+            }
+
+            .section-header h2 {
+                font-size: 36px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-text h2 {
+                font-size: 32px;
+            }
+
+            .contact-header h2 {
+                font-size: 32px;
+            }
+
+            main {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-wrapper">
+            <div class="logo">NDH</div>
+            <ul class="nav-links">
+                <li><a onclick="navigateTo('home')" class="nav-link active">Home</a></li>
+                <li><a onclick="navigateTo('projects')" class="nav-link">Projects</a></li>
+                <li><a onclick="navigateTo('about')" class="nav-link">About</a></li>
+                <li><a onclick="navigateTo('contact')" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Home Page -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Automotive Engineer & Control Systems Developer</h1>
+                    <p class="hero-subtitle">Building intelligent EV routing systems and researching emerging materials. A full-stack engineer focused on real-world impact and elegant solutions.</p>
+                    <div class="hero-cta">
+                        <button class="btn btn-primary" onclick="navigateTo('projects')">View Work</button>
+                        <button class="btn btn-secondary" onclick="navigateTo('contact')">Get in Touch</button>
+                    </div>
+                </div>
+                <div class="scroll-indicator">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M19 12l-7 7-7-7"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Page -->
+        <section id="projects" class="page">
+            <div class="projects-section">
+                <div class="section-header">
+                    <h2>Featured Projects</h2>
+                    <p>A selection of recent work spanning control systems, materials research, and practical engineering.</p>
+                </div>
+
+                <div class="projects-grid">
+                    <!-- EV Routing MPC -->
+                    <div class="project-card">
+                        <div class="project-label">Main Project</div>
+                        <h3 class="project-title">EV Routing & Energy Management</h3>
+                        <p class="project-desc">Real-time model predictive control for intelligent electric vehicle routing and energy optimization on VinFast vehicles across Hanoi's infrastructure.</p>
+                        <div class="project-tech">
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">MATLAB/Simulink</span>
+                            <span class="tech-badge">MPC</span>
+                            <span class="tech-badge">TomTom API</span>
+                            <span class="tech-badge">Streamlit</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://ev-routing-mpc-hanoi.streamlit.app/" target="_blank" class="project-link">Live Demo →</a>
+                            <a href="https://github.com/logan-124" target="_blank" class="project-link">GitHub →</a>
+                        </div>
+                    </div>
+
+                    <!-- Graphene Research -->
+                    <div class="project-card">
+                        <div class="project-label">Research</div>
+                        <h3 class="project-title">Graphene Foam Structure</h3>
+                        <p class="project-desc">Investigation of shape memory effect and thermal resilience in graphene foam structures. Academic research with bilingual documentation.</p>
+                        <div class="project-tech">
+                            <span class="tech-badge">Materials Science</span>
+                            <span class="tech-badge">Simulation</span>
+                            <span class="tech-badge">Research</span>
+                        </div>
+                        <div class="project-links">
+                            <span class="project-link" style="color: var(--text-muted); cursor: default;">Paper in Progress</span>
+                        </div>
+                    </div>
+
+                    <!-- Industrial Engineering -->
+                    <div class="project-card">
+                        <div class="project-label">Practical</div>
+                        <h3 class="project-title">Industrial Engineering Collaboration</h3>
+                        <p class="project-desc">Structural design and FEA validation for commercial engineering project. Hands-on experience with ANSYS, ANSA, and professional CAD workflows.</p>
+                        <div class="project-tech">
+                            <span class="tech-badge">ANSYS</span>
+                            <span class="tech-badge">ANSA</span>
+                            <span class="tech-badge">CAD</span>
+                            <span class="tech-badge">FEA</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" onclick="navigateTo('about'); return false;" class="project-link">Details →</a>
+                        </div>
+                    </div>
+
+                    <!-- Hyundai Week -->
+                    <div class="project-card">
+                        <div class="project-label">Award</div>
+                        <h3 class="project-title">Hyundai Practical Design Week</h3>
+                        <p class="project-desc">Intensive practical engineering experience with Hyundai. Applied design thinking, real-world problem-solving, and received First Prize recognition.</p>
+                        <div class="project-tech">
+                            <span class="tech-badge">Design</span>
+                            <span class="tech-badge">CAD</span>
+                            <span class="tech-badge">Engineering</span>
+                        </div>
+                        <div class="project-links">
+                            <span class="project-link" style="color: var(--accent-warm);">🏆 1st Prize</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section id="about" class="page">
+            <div class="about-section">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h2>About Me</h2>
+                        <p>
+                            I'm a fourth-year automotive engineering student at Hanoi University of Science and Technology (HUST), graduating in September 2026. My work bridges theoretical control systems with practical automotive applications.
+                        </p>
+                        <p>
+                            My current focus is developing intelligent EV routing and energy management systems, combining Python for algorithmic design with MATLAB/Simulink for control validation. I've also conducted research into emerging materials, specifically the shape memory effects in graphene foam structures.
+                        </p>
+                        <p>
+                            I'm driven by hands-on engineering—from CAD design to FEA simulation to web application deployment. I believe in taking full ownership of projects and delivering tangible results that matter.
+                        </p>
+
+                        <div class="skills-container">
+                            <div class="skill-category">
+                                <div class="skill-category-title">Programming & Scripting</div>
+                                <div class="skill-items">
+                                    <span class="skill-tag">Python (NumPy, SciPy, NetworkX)</span>
+                                    <span class="skill-tag">MATLAB/Simulink</span>
+                                    <span class="skill-tag">Linux</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-category">
+                                <div class="skill-category-title">CAD & Simulation</div>
+                                <div class="skill-items">
+                                    <span class="skill-tag">ANSYS FEA</span>
+                                    <span class="skill-tag">ANSA</span>
+                                    <span class="skill-tag">AutoCAD</span>
+                                    <span class="skill-tag">Solid Works</span>
+                                    <span class="skill-tag">CATIA</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-category">
+                                <div class="skill-category-title">Control & Optimization</div>
+                                <div class="skill-items">
+                                    <span class="skill-tag">Model Predictive Control</span>
+                                    <span class="skill-tag">Route Optimization</span>
+                                    <span class="skill-tag">Energy Management</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-category">
+                                <div class="skill-category-title">Tools & APIs</div>
+                                <div class="skill-items">
+                                    <span class="skill-tag">Git</span>
+                                    <span class="skill-tag">Docker</span>
+                                    <span class="skill-tag">Streamlit</span>
+                                    <span class="skill-tag">TomTom Maps API</span>
+                                    <span class="skill-tag">OpenTopoData</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-sidebar">
+                        <div class="sidebar-item">
+                            <div class="sidebar-label">University</div>
+                            <div class="sidebar-value">HUST (Hanoi University of Science & Technology)</div>
+                        </div>
+
+                        <div class="sidebar-item">
+                            <div class="sidebar-label">Degree</div>
+                            <div class="sidebar-value">B.S. Automotive Engineering</div>
+                        </div>
+
+                        <div class="sidebar-item">
+                            <div class="sidebar-label">Graduation</div>
+                            <div class="sidebar-value">September 2026</div>
+                        </div>
+
+                        <div class="sidebar-item">
+                            <div class="sidebar-label">GPA</div>
+                            <div class="sidebar-value">3.25/4.0 (Est. 3.35 final)</div>
+                        </div>
+
+                        <div class="sidebar-item">
+                            <div class="sidebar-label">Languages</div>
+                            <div class="sidebar-value">
+                                Vietnamese (Native)<br/>
+                                English (IELTS 5.0–5.5)<br/>
+                                Japanese (JLPT N3)
+                            </div>
+                        </div>
+
+                        <div class="sidebar-item">
+                            <div class="sidebar-label">Recognition</div>
+                            <div class="sidebar-value">5+ research & practical awards</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section id="contact" class="page">
+            <div class="contact-section">
+                <div class="contact-header">
+                    <h2>Let's Connect</h2>
+                    <p>Interested in collaboration or just want to discuss ideas? Reach out.</p>
+                </div>
+
+                <div class="contact-methods">
+                    <div class="contact-card">
+                        <div class="contact-label">Email</div>
+                        <a href="mailto:duyhung.nguyen.cp@gmail.com" class="contact-value">duyhung.nguyen.cp@gmail.com</a>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-label">GitHub</div>
+                        <a href="https://github.com/logan-124" target="_blank" class="contact-value">github.com/logan-124</a>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-label">LinkedIn</div>
+                        <a href="https://www.linkedin.com/in/nguyenhung020604/" target="_blank" class="contact-value">nguyenhung020604</a>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-label">Location</div>
+                        <div class="contact-value">Hanoi, Vietnam</div>
+                    </div>
+                </div>
+
+                <div class="contact-socials">
+                    <a href="https://github.com/logan-124" target="_blank" class="social-link">GitHub</a>
+                    <a href="https://www.linkedin.com/in/nguyenhung020604/" target="_blank" class="social-link">LinkedIn</a>
+                    <a href="mailto:duyhung.nguyen.cp@gmail.com" class="social-link">Email</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Nguyen Duy Hung. Crafted with precision.</p>
+    </footer>
+
+    <script>
+        const pages = ['home', 'projects', 'about', 'contact'];
+        
+        function navigateTo(pageId) {
+            // Validate page
+            if (!pages.includes(pageId)) return;
+            
+            // Hide all pages
+            pages.forEach(page => {
+                const el = document.getElementById(page);
+                if (el) {
+                    el.classList.remove('active');
+                    el.style.display = 'none';
+                }
+            });
+            
+            // Show target page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                targetPage.classList.add('active');
+            }
+            
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(pageId)) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Init on page load
+        window.addEventListener('load', () => {
+            navigateTo('home');
+        });
+
+        // Fallback if load event doesn't fire
+        setTimeout(() => {
+            const homePage = document.getElementById('home');
+            if (homePage && homePage.style.display === 'none') {
+                navigateTo('home');
+            }
+        }, 100);
+    </script>
+</body>
+</html>
